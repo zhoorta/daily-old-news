@@ -1,6 +1,22 @@
 # DailyOldNews
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.4.
+Daily Old News uses the [New York Times API](http://developer.nytimes.com/) content to display the day news from:
+- 100 years ago;
+- 50 years ago;
+- 25 years ago;
+
+Based on Angular 4 and Bootstrap 4.
+
+## Configuration
+
+The configuration files are in `/environments`. 
+
+Insert your `apiKey` ([get one from nyt](http://developer.nytimes.com/)).
+
+In order to use a local copy from the NYT data, export the json files from NYT API and save under the configured `localStorageLocation` using as name: `yyyymm.json` (replace `yyyy` with the year and `mm` with the month). Enabling the local copy will disable the api requests.To enable configure `localStorage: 1`. 
+
+Follow the [NYT Attributions and Restrictions](https://developer.nytimes.com/attribution).
+
 
 ## Development server
 
