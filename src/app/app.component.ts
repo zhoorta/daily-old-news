@@ -29,12 +29,9 @@ export class AppComponent implements OnInit {
       this.selected_year = 0;
       this.years.push(this.nytService.year); 
       this.years.push(this.nytService.year + 50); 
-      this.years.push(this.nytService.year + 75); 
+      this.years.push(this.nytService.year + 75);
 
-
-  		this.nyt_articles$ = this.nytService.getArticles();
-  		//let x = this.getOldDate();
-  		//console.log(x.getDate())
+      this.nyt_articles$ = this.nytService.getArticles();
     
   	}
 
@@ -43,8 +40,6 @@ export class AppComponent implements OnInit {
 
       this.selected_year = this.nytService.year = year;
       if(year>0) this.nyt_articles$ = this.nytService.getArticles();
-
-
 
   	}
 
