@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Old Standard TT', serif;
+  margin-bottom: 60px;
+}
+
+.container {
+  max-width: 1280px; }
+
+a {
+	color: inherit;
+}
+
+a:focus, a:hover {
+	color: #2F4F4F;
+	text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #2F4F4F;
+  border-color: #2F4F4F;
+}
+
+.btn-primary:focus, .btn-primary:hover {
+  background-color: #2F4F4F;
+  border-color: #2F4F4F;
+  text-decoration: none;
+}
+
+.btn {
+  font-family: 'Old Standard TT', serif;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.quote {
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+

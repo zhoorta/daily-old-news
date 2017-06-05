@@ -5,16 +5,21 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
+import { NYTService } from './nyt.service';
+
+import { NYTUrlPipe } from './nyt-url.pipe';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NYTUrlPipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [NYTService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

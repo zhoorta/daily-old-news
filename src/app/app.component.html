@@ -1,3 +1,89 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+
+
+	<div class="row">
+		<div class="col-md-12"><hr></div>
+		<div class="col-md-6">
+			<a href="#" #elem (click)="changeYear(0)"><h1>{{title}}</h1></a>
+			<small>{{sub_title}}</small>
+		</div>
+		<div class="col-md-6 text-right">
+
+			<span *ngFor="let year of years">
+				<button class="btn" [ngClass]="{'btn-primary': year == selected_year}" #elem (click)="changeYear(elem.id)" id="{{ year }}" >{{ year }}</button>
+			</span>
+
+		</div>
+		<div class="col-md-12"><hr></div>
+	</div>
+
+
+
+
+	<div class="row" *ngIf="!selected_year">
+
+		<div class="col-md-12">
+				<h6 class="text-center text-muted quote"><i>"Fresh news everyday!"</i></h6>
+				<div class="card-deck">
+
+					<div class="card" *ngFor="let year of years">
+						<div class="card-block">
+						  <br>
+						  <a href="#" #elem (click)="changeYear(elem.id)" id="{{ year }}"><h4 class="card-title text-center">{{ nytService.getYearSearchDate(year) | date: 'fullDate' }}</h4></a>
+						  <br>
+						  <p class="card-text text-center"><small class="text-muted">Updated {{ nytService.getLastUpdate(year) }} years ago</small></p>
+						</div>
+					</div>
+
+				</div>
+
+
+		</div>
+	</div>
+
+	<div class="row" *ngIf="selected_year">
+
+		<div class="col-md-12">
+
+			<div class="card-columns">
+
+			  <div class="card" *ngFor="let nyt_article of nyt_articles$ | async">
+			    <div class="card-block">
+			      <a href="{{ nyt_article.web_url | nyturl }}" target="_blank"><h4 class="card-title">{{ nyt_article.headline.main }}</h4></a>
+			      <p class="card-text">{{ nyt_article.lead_paragraph }}</p>
+			      <p class="card-text"><small class="text-muted">{{ nyt_article.pub_date | date:'medium' }}</small></p>
+			    </div>
+			  </div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+</div>
+
+
+<footer class="footer">
+	
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-12"><hr></div>
+			<div class="col-md-6">
+				<h5>{{ title }}</h5>
+
+			</div>
+			<div class="col-md-6 text-right">
+				<a href="http://github.com"><img src="/assets/github.png" alt="github project"></a>&nbsp;&nbsp;&nbsp;
+				<a href="http://developer.nytimes.com" target="_blank"><img src="http://static.nytimes.com/packages/images/developer/logos/poweredby_nytimes_150c.png" alt="data provided by the new york times"></a>
+			</div>
+			<div class="col-md-12"><hr></div>
+
+		</div>
+
+	</div>
+
+</footer>
