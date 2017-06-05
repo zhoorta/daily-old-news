@@ -13,7 +13,7 @@ The configuration files are in `/environments`.
 
 Insert your `apiKey` ([get one from nyt](http://developer.nytimes.com/)).
 
-In order to use a local copy from the NYT data, export the json files from NYT API and save under the configured `localStorageLocation` using as name: `yyyymm.json` (replace `yyyy` with the year and `mm` with the month). Enabling the local copy will disable the api requests.To enable configure `localStorage: 1`. 
+In order to use a local copy from the NYT data, export the json files from NYT API and save under the configured `localStorageLocation` using as name: `yyyymm.json` (replace `yyyy` with the year and `mm` with the month). Enabling the local copy will disable the api requests. Configure `localStorage: 1` to enable local copy. 
 
 Follow the [NYT Attributions and Restrictions](https://developer.nytimes.com/attribution).
 
