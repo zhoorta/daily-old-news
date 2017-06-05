@@ -17,6 +17,11 @@ In order to use a local copy from the NYT data, export the json files from NYT A
 
 Follow the [NYT Attributions and Restrictions](https://developer.nytimes.com/attribution).
 
+## Screenshots
+
+![Homepage](/src/assets/scr0.png "Home page")
+
+![News](/src/assets/scr1.png "News")
 
 ## Development server
 
