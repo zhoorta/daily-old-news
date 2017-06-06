@@ -16,8 +16,8 @@ export class AppComponent implements OnInit {
   	public nyt_articles$: Observable<any>;
   	public archive_date;
 
-    private years = [];
-    private selected_year: number;
+    public years = [];
+    public selected_year: number;
 
 
     constructor(private nytService: NYTService) {}
