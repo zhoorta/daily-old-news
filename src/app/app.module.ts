@@ -7,12 +7,9 @@ import { AppComponent } from './app.component';
 
 import { NYTService } from './nyt.service';
 
-import { NYTUrlPipe } from './nyt-url.pipe';
-
 @NgModule({
   declarations: [
-    AppComponent,
-    NYTUrlPipe
+    AppComponent
   ],
   imports: [
     BrowserModule,
