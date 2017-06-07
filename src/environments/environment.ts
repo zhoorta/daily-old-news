@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.nytimes.com/svc/archive/v1/',
+  apiUrl: 'http://localhost:3000/api/',
   apiKey: '',
-  localStorage: 0,
-  localStorageLocation: '/assets/data/',
+  nytApiUrl: 'https://api.nytimes.com/svc/archive/v1/',
+  nytApiKey: '',
 };

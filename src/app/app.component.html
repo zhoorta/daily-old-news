@@ -49,9 +49,11 @@
 
 			  <div class="card" *ngFor="let nyt_article of nyt_articles$ | async">
 			    <div class="card-block">
-			      <a href="{{ nyt_article.web_url }}" target="_blank"><h4 class="card-title">{{ nyt_article.headline.main }}</h4></a>
+			      <p class="card-text"><small class="text-muted">{{ nyt_article.type_of_material }}</small></p>
+			      <a href="{{ nyt_article.web_url }}" target="_blank"><h4 class="card-title">{{ nyt_article.headline }}</h4></a>
 			      <p class="card-text">{{ nyt_article.lead_paragraph }}</p>
 			      <p class="card-text"><small class="text-muted">{{ nyt_article.pub_date | date:'medium' }}</small></p>
+			      
 			    </div>
 			  </div>
 

@@ -11,12 +11,11 @@ export class NYTService {
 
 
     //private apiUrl = 'https://api.nytimes.com/svc/archive/v1/1917/6.json';
-
     private apiUrl = environment.apiUrl;
-    private apiKey = environment.apiKey;
-    private localStorage = environment.localStorage;
-    private localStorageLocation = environment.localStorageLocation;
+    private apiKey = environment.apiKey
 
+    private nytApiUrl = environment.apiUrl;
+    private nytApiKey = environment.apiKey;
 
 
     public searchDate: string;
@@ -37,10 +36,8 @@ export class NYTService {
 
     getArticles = (): Observable<any> => {
 
-        var apiSrc: string;
-
-        if(this.localStorage) apiSrc = this.localStorageLocation + this.year + this.month + '.json';
-        else apiSrc = this.apiUrl + this.year + '/' + this.month + '.json?api-key=' + this.apiKey;
+        //var apiSrc =  this.apiUrl + this.year + '/' + this.month + '.json?api-key=' + this.apiKey;
+        var apiSrc =  this.apiUrl + 'docs/' + this.year + '/' + this.month + '/' + this.day;
 
         this.searchDate = this.year + '-' + this.month + '-' + this.day;
 
@@ -53,21 +50,22 @@ export class NYTService {
 
 
     private extractData(response: Response) {
-        let body = response.json();
+        let articles = response.json();
 
         var pub_date: string;
         var ret_val : any = [];
 
-        for(let data of body.response.docs) {
+        console.log(articles);
 
-          pub_date = data.pub_date;
+          /*
+        for(let article of articles) {
+
+          pub_date = article.pub_date;
           if(pub_date.substring(0,10)==this.searchDate) {
-              ret_val.push(data);
+              ret_val.push(article);
           }
-
-        }
-
-        return ret_val || {};
+          */
+        return articles;
     }
 
     private setupDates()
