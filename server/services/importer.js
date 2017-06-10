@@ -2,7 +2,8 @@ exports.import_nyt_json = function(res, year, month) {
 
 	// declare axios for making http requests
 	const axios = require('axios');
-	const API = 'http://ironsoft.net';
+	const API = 'http://api.nytimes.com/svc/archive/v1';
+	const APIKey = ''
 	//const API = 'http://localhost:3000';
 
 
@@ -28,10 +29,10 @@ exports.import_nyt_json = function(res, year, month) {
   		
   		// starting import
   		console.log('starting import!');
-  		console.log(`${API}/` + year + month + '.json');
+  		console.log(`${API}/` + year + '/' + month + '.json?api-key=' + APIKey);
 		
 
-		axios.get(`${API}/` + year + month + '.json')
+		axios.get(`${API}/` + year + '/' + month + '.json?api-key=' + APIKey)
 	    .then(content => {
 
 	    	

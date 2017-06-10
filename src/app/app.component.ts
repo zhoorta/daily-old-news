@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { NYTService } from './nyt.service';
+import { AdminToolsService } from './admin-tools.service';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -23,20 +23,20 @@ export class AppComponent implements OnInit {
     public ctrl_date;
     public curr_date;
 
+    public import_start_month;
+    public import_start_year;
+    public import_end_month;
+    public import_end_year;
 
-    constructor(private nytService: NYTService) {}
+
+    constructor(private nytService: NYTService, private adminToolsService: AdminToolsService) {}
 
 
   	ngOnInit() {
 
-
-      //this.isDateSelected = false;
-      //this.isDateSelected = false;
       this.years.push(this.nytService.year); 
       this.years.push(this.nytService.year + 50); 
       this.years.push(this.nytService.year + 75);
-
-      //this.nyt_articles$ = this.nytService.getArticles();
     
   	}
 
@@ -71,9 +71,15 @@ export class AppComponent implements OnInit {
         this.nytService.setDate(new Date(date));
         this.nyt_articles$ = this.nytService.getArticles();
 
-      }
-      
+      }     
 
+    }
+
+    cacheData()
+    {
+
+      this.adminToolsService.cacheData(this.import_start_month, this.import_start_year, this.import_end_month, this.import_end_year)
+    
     }
 
 }

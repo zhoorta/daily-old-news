@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
 import { NYTService } from './nyt.service';
+import { AdminToolsService } from './admin-tools.service';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { NYTService } from './nyt.service';
     FormsModule,
     HttpModule,
   ],
-  providers: [NYTService],
+  providers: [NYTService, AdminToolsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

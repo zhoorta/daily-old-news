@@ -12,10 +12,11 @@ export class NYTService {
 
     //private apiUrl = 'https://api.nytimes.com/svc/archive/v1/1917/6.json';
     private apiUrl = environment.apiUrl;
-    private apiKey = environment.apiKey
+    private apiKey = environment.apiKey;
+    
 
-    private nytApiUrl = environment.apiUrl;
-    private nytApiKey = environment.apiKey;
+
+    private adminMode = environment.adminMode;
 
     public refreshingData: boolean = false;
     public searchDate: string;

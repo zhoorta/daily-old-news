@@ -8,20 +8,46 @@
 			<small>{{sub_title}}</small>
 		</div>
 		<div class="col-md-6 col-xs-6 text-right">
-		<!--
-			<span *ngFor="let year of years">
-				<button class="btn" [ngClass]="{'btn-primary': year == selected_year}" #elem (click)="changeYear(elem.id)" id="{{ year }}" >{{ year }}</button>
-			</span>
-			<br>
 
-		-->
-			<input [(ngModel)]="ctrlDate" type="date" class="form-control form-control-date" max="1979-12-31" min="1899-12-31" (change)="changeDate($event.target.value)" value="{{ curr_date }}">
+			<input type="date" class="form-control form-control-date" max="1979-12-31" min="1899-12-31" (change)="changeDate($event.target.value)" value="{{ curr_date }}">
 
 		</div>
 		<div class="col-md-12"><hr></div>
 	</div>
 
+	<div class="row" *ngIf="nytService.adminMode">
+		<div class="col-md-6">
 
+			<div class="card">
+				<div class="card-block bg-warning" >
+					<h4 class="card-title">Admin mode!!!</h4>
+					<p class="card-text">
+						<small><code>To disable edit environment.ts</code></small>
+					</p>
+					<p class="card-text">
+
+						Local Sync Caching NYT API<br>
+
+					</p>
+					<form>
+						<div class="form-group">
+							<label for="start-month">Start:</label>
+							<input class="form-control" type="number" [(ngModel)]="import_start_month" min="1" max="12" name="start-month" placeholder="month">
+							<input class="form-control" type="number" [(ngModel)]="import_start_year" min="1851" max="2017" name="start-year" placeholder="year">
+						</div>
+						<div class="form-group">
+							<label for="end-month">End:</label>
+							<input class="form-control" type="number" [(ngModel)]="import_end_month" min="1" max="12" name="end-month" placeholder="month">
+							<input class="form-control" type="number" [(ngModel)]="import_end_year" min="1851" max="2017" name="end-year" placeholder="year">
+						</div>
+						<button type="submit" class="btn btn-primary" (click)="cacheData()" >Start caching!</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
 
 
 	<div class="row" *ngIf="!isDateSelected">
