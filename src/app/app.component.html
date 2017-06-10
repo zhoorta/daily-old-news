@@ -2,16 +2,20 @@
 
 
 	<div class="row">
-		<div class="col-md-12"><hr></div>
-		<div class="col-md-6">
-			<a href="#" #elem (click)="changeYear(0)"><h1>{{title}}</h1></a>
+		<div class="col-md-12 "><hr></div>
+		<div class="col-md-6 col-xs-6">
+			<a href="#" #elem (click)="resetDate()"><h1>{{title}}</h1></a>
 			<small>{{sub_title}}</small>
 		</div>
-		<div class="col-md-6 text-right">
-
+		<div class="col-md-6 col-xs-6 text-right">
+		<!--
 			<span *ngFor="let year of years">
 				<button class="btn" [ngClass]="{'btn-primary': year == selected_year}" #elem (click)="changeYear(elem.id)" id="{{ year }}" >{{ year }}</button>
 			</span>
+			<br>
+
+		-->
+			<input [(ngModel)]="ctrlDate" type="date" class="form-control form-control-date" max="1979-12-31" min="1899-12-31" (change)="changeDate($event.target.value)" value="{{ curr_date }}">
 
 		</div>
 		<div class="col-md-12"><hr></div>
@@ -20,7 +24,7 @@
 
 
 
-	<div class="row" *ngIf="!selected_year">
+	<div class="row" *ngIf="!isDateSelected">
 
 		<div class="col-md-12">
 				<h6 class="text-center text-muted quote"><i>"Fresh news everyday!"</i></h6>
@@ -29,7 +33,7 @@
 					<div class="card" *ngFor="let year of years">
 						<div class="card-block">
 						  <br>
-						  <a href="#" #elem (click)="changeYear(elem.id)" id="{{ year }}"><h4 class="card-title text-center">{{ nytService.getYearSearchDate(year) | date: 'fullDate' }}</h4></a>
+						  <a href="#" (click)="changeDate(nytService.getYearSearchDate(year), true)"><h4 class="card-title text-center">{{ nytService.getYearSearchDate(year) | date: 'fullDate' }}</h4></a>
 						  <br>
 						  <p class="card-text text-center"><small class="text-muted">Updated {{ nytService.getLastUpdate(year) }} years ago</small></p>
 						</div>
@@ -41,9 +45,13 @@
 		</div>
 	</div>
 
-	<div class="row" *ngIf="selected_year">
+	<div class="row" *ngIf="isDateSelected">
 
-		<div class="col-md-12">
+		<div class="col-md-12 div-articles">
+
+			<div class="overlay text-center" *ngIf="this.nytService.refreshingData">
+    			<br>Loading...
+			</div>
 
 			<div class="card-columns">
 
@@ -58,6 +66,10 @@
 			  </div>
 
 			</div>
+
+			<div class="text-center" *ngIf="!this.nytService.totalArticles"><br><h4>No news good news!</h4>Try another date!</div>
+
+			
 
 		</div>
 

@@ -35,6 +35,16 @@ a:focus, a:hover {
   font-family: 'Old Standard TT', serif;
 }
 
+
+input {
+  font-family: 'Old Standard TT', serif;
+}
+
+.form-control-date {
+  display: inline;
+  width: auto; 
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -47,3 +57,12 @@ a:focus, a:hover {
   margin-bottom: 30px;
 }
 
+.overlay {
+  position: absolute;
+  background: rgb(0, 0, 0);
+  /* fallback color*/
+  background: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}

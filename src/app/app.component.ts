@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { NYTService } from './nyt.service';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,10 +16,12 @@ export class AppComponent implements OnInit {
     sub_title = 'Data provided by nyt api';
 
   	public nyt_articles$: Observable<any>;
-  	public archive_date;
 
     public years = [];
-    public selected_year: number;
+    public isDateSelected: boolean = false;
+
+    public ctrl_date;
+    public curr_date;
 
 
     constructor(private nytService: NYTService) {}
@@ -25,22 +29,51 @@ export class AppComponent implements OnInit {
 
   	ngOnInit() {
 
-      //this.selected_year = this.nytService.year;
-      this.selected_year = 0;
+
+      //this.isDateSelected = false;
+      //this.isDateSelected = false;
       this.years.push(this.nytService.year); 
       this.years.push(this.nytService.year + 50); 
       this.years.push(this.nytService.year + 75);
 
-      this.nyt_articles$ = this.nytService.getArticles();
+      //this.nyt_articles$ = this.nytService.getArticles();
     
   	}
 
-  	changeYear(year)
-  	{
+    changeDay(day_to_add)
+    {
+      var current = new Date(this.nytService.searchDate);
+      current.setDate(current.getDate() + day_to_add);
 
-      this.selected_year = this.nytService.year = year;
-      if(year>0) this.nyt_articles$ = this.nytService.getArticles();
+      this.nytService.setDate(current);
+      this.nyt_articles$ = this.nytService.getArticles();
 
-  	}
+    }
+
+    resetDate()
+    {
+      this.curr_date = null;
+      this.isDateSelected = false;
+      this.nytService.resetDate()
+    }
+
+    changeDate(date,sync_ctrl=false)
+    {
+
+      if (!date) { this.resetDate(); }
+      else {
+
+        if(sync_ctrl) this.curr_date = date; 
+
+        this.nytService.refreshingData = true;
+        this.isDateSelected = true;
+        
+        this.nytService.setDate(new Date(date));
+        this.nyt_articles$ = this.nytService.getArticles();
+
+      }
+      
+
+    }
 
 }

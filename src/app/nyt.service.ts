@@ -17,20 +17,19 @@ export class NYTService {
     private nytApiUrl = environment.apiUrl;
     private nytApiKey = environment.apiKey;
 
-
+    public refreshingData: boolean = false;
     public searchDate: string;
-    
-    public today: any;
-    public yesterday: any;
 
     public current_year: any;
     public year: any;
     public month: any;
     public day: any;
 
+    public totalArticles: number = 0;
+
   	constructor(private http: Http) { 
 
-          this.setupDates();
+      this.resetDate();
     }
 
 
@@ -39,10 +38,6 @@ export class NYTService {
         //var apiSrc =  this.apiUrl + this.year + '/' + this.month + '.json?api-key=' + this.apiKey;
         var apiSrc =  this.apiUrl + 'docs/' + this.year + '/' + this.month + '/' + this.day;
 
-        this.searchDate = this.year + '-' + this.month + '-' + this.day;
-
-
-        //return this.http.get(this.newsAPI  + '?api-key=' + this.apiKey)
         return this.http.get(apiSrc)
         	.map(this.extractData, this)
             .catch(this.handleError);
@@ -52,36 +47,34 @@ export class NYTService {
     private extractData(response: Response) {
         let articles = response.json();
 
-        var pub_date: string;
-        var ret_val : any = [];
+        this.refreshingData = false;
 
-        console.log(articles);
+        this.totalArticles = articles.length;
 
-          /*
-        for(let article of articles) {
-
-          pub_date = article.pub_date;
-          if(pub_date.substring(0,10)==this.searchDate) {
-              ret_val.push(article);
-          }
-          */
         return articles;
     }
+    
 
-    private setupDates()
+    public resetDate()
     {
-        
-        this.today = new Date();
+      var today = new Date();
+      this.current_year = today.getFullYear();
 
-        this.current_year = this.today.getFullYear();
-        this.year = this.current_year - 100;
-        this.month = this.today.getMonth() +1;
-        this.day = this.today.getDate();
+      this.setDate(new Date(this.current_year - 100, today.getMonth(), today.getDate()))
+    }
 
-        if(this.month < 10) this.month = '0'+ this.month;
-        if(this.day < 10) this.day = '0'+ this.day;
+    public setDate(date: Date)
+    {
 
-        this.yesterday = new Date(this.year, this.month, this.month);
+      this.totalArticles = 0;
+      this.year = date.getFullYear();
+      this.month = date.getMonth() + 1;
+      this.day = date.getDate();
+
+      if(this.month < 10) this.month = '0'+ this.month;
+      if(this.day < 10) this.day = '0'+ this.day;
+
+      this.searchDate = this.year + '-' + this.month + '-' + this.day;
     }
 
     getYearSearchDate(year)

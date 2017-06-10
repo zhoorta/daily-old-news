@@ -11,11 +11,11 @@ router.get('/import/:year/:month', (req, res) => {
 });
 
 // Get documents
-router.get('/docs/:year/:month/:day', (req, res) => {
+router.get('/docs/:year/:month/:day/:page?', (req, res) => {
 
 	var reader = require('../services/reader');
 	
-	reader.get_nyt_articles(res, req.params.year + '-' + req.params.month + '-' + req.params.day);
+	reader.get_nyt_articles(res, req.params.year + '-' + req.params.month + '-' + req.params.day, req.params.page);
 
 });
 

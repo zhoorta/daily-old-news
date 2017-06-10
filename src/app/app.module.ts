@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { NYTService } from './nyt.service';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +15,7 @@ import { NYTService } from './nyt.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
   ],
   providers: [NYTService],
   bootstrap: [AppComponent]

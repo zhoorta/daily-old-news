@@ -1,4 +1,4 @@
-exports.get_nyt_articles = function(res, date) {
+exports.get_nyt_articles = function(res, date, page) {
 
 	// declare axios for making http requests
 	const mongoose = require('mongoose');
@@ -26,7 +26,9 @@ exports.get_nyt_articles = function(res, date) {
   		// starting import
   		console.log('start reading ' + date);
 
-		Document.find({'$where': 'this.pub_date.slice(0, 10) == "' + date + '"'}, function(err, docs) {
+  		if(!page) page = 1;
+
+		Document.find({'$and': [{'$where': 'this.pub_date.slice(0, 10) == "' + date + '"'} , { print_page: page }]}).exec( function(err, docs) {
 		
 			console.log('finished reading!')
 			if (err) throw err;
