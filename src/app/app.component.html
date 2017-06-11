@@ -20,10 +20,10 @@
 
 			<div class="card">
 				<div class="card-block bg-warning" >
+
 					<h4 class="card-title">Admin mode!!!</h4>
-					<p class="card-text">
-						<small><code>To disable edit environment.ts</code></small>
-					</p>
+
+
 					<p class="card-text">
 
 						Local Sync Caching NYT API<br>
@@ -32,19 +32,29 @@
 					<form>
 						<div class="form-group">
 							<label for="start-month">Start:</label>
-							<input class="form-control" type="number" [(ngModel)]="import_start_month" min="1" max="12" name="start-month" placeholder="month">
-							<input class="form-control" type="number" [(ngModel)]="import_start_year" min="1851" max="2017" name="start-year" placeholder="year">
+							<input class="form-control" type="number" [(ngModel)]="import_start_month" [disabled]="adminToolsService.processing" min="1" max="12" name="start-month" placeholder="month">
+							<input class="form-control" type="number" [(ngModel)]="import_start_year" [disabled]="adminToolsService.processing" min="1851" max="2017" name="start-year" placeholder="year">
 						</div>
 						<div class="form-group">
 							<label for="end-month">End:</label>
-							<input class="form-control" type="number" [(ngModel)]="import_end_month" min="1" max="12" name="end-month" placeholder="month">
-							<input class="form-control" type="number" [(ngModel)]="import_end_year" min="1851" max="2017" name="end-year" placeholder="year">
+							<input class="form-control" type="number" [(ngModel)]="import_end_month" [disabled]="adminToolsService.processing" min="1" max="12" name="end-month" placeholder="month">
+							<input class="form-control" type="number" [(ngModel)]="import_end_year" [disabled]="adminToolsService.processing" min="1851" max="2017" name="end-year" placeholder="year">
 						</div>
-						<button type="submit" class="btn btn-primary" (click)="cacheData()" >Start caching!</button>
+						<button type="submit" class="btn btn-primary" (click)="cacheData()" [disabled]="adminToolsService.processing">Start caching!</button>
 					</form>
+
 				</div>
 			</div>
 
+		</div>
+
+
+		<div class="col-md-6">
+
+			<samp>To disable admin mode edit environment.ts<br></samp>
+			<samp>
+				{{ adminToolsService.log }}
+			</samp>
 		</div>
 
 	</div>

@@ -3,19 +3,14 @@ exports.import_nyt_json = function(res, year, month) {
 	// declare axios for making http requests
 	const axios = require('axios');
 	const API = 'http://api.nytimes.com/svc/archive/v1';
-	const APIKey = ''
-	//const API = 'http://localhost:3000';
+	const APIKey = '';
 
 
 	var mongoose = require('mongoose');
 	mongoose.Promise = global.Promise;
 
-	mongoose.connect('mongodb://localhost/nyt/docs');
-
-	
-
 	var db = mongoose.createConnection('mongodb://localhost/nyt/docs');
-	//var db = mongoose.connection;
+
 
 	var Document = require('../models/document');
 	
@@ -54,11 +49,11 @@ exports.import_nyt_json = function(res, year, month) {
     				});
 
     			mongo_doc.save(function(err) {
-					if (err) { console.log(err); throw err; exit();}
+					if (err) { 
+						console.log(err); 
+						throw err; 
+						}
 				});
-
-				console.log(mongo_doc);
-    			
     			
     		}
 
@@ -68,11 +63,12 @@ exports.import_nyt_json = function(res, year, month) {
 
 	    	db.close();
 
-	    	res.status(200).json(articles);
+	    	res.status(200).json({ok:"ok"});
 	    })
 	    .catch(error => {
+	    	db.close();
 	    	console.log(error);
-	      res.status(500).send(error)
+	      	res.status(500).send(error)
 	    });
 
 

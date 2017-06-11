@@ -17,6 +17,8 @@ export class AdminToolsService {
 	private date: Date;
 	private target: Date;
 
+	private log: string = "> Log ready!";
+
 
 
 	constructor(private http: Http) { }
@@ -36,15 +38,17 @@ export class AdminToolsService {
 
     	if (this.date < this.target) {
 
-    		console.log('processing');
-    		console.log(this.date);
+    		this.insertLog('processing');
+    		this.insertLog(this.date);
+
 
 	    	var month = this.date.getMonth() + 1;
 	    	var year = this.date.getFullYear();
 
 			var apiSrc =  this.apiUrl + 'import/' + year + '/' + month;
 
-			console.log(apiSrc);
+			
+			this.insertLog(apiSrc);
 
 	        this.http.get(apiSrc)
 	        	.map(this.extractData, this)
@@ -63,17 +67,24 @@ export class AdminToolsService {
 
     private extractData(response: Response) {
         		
-		console.log('extracting');
 		this.date.setMonth(this.date.getMonth() + 1); 
 		this.getNYTJson();
+
+		this.insertLog('finished');
 
         return response.json();
     }
 
 
     private handleError(error: Response) {
-        console.log(error);
+        this.insertLog(error);
         return Observable.throw(error.json().error || "500 internal server error");
+    }
+
+    private insertLog(data)
+    {
+    	console.log(data);
+    	this.log += " ==> ==> " + data;
     }
 
 
