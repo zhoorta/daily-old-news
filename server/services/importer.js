@@ -60,6 +60,8 @@ exports.import_nyt_json = function(res, year, month) {
 
     		console.log('finished import!');
   			console.log('-----------------');
+
+  			setTimeout((function timeOut() { console.log('waiting 5sec') }),3000);
   		
 
 	    	db.close();
@@ -75,6 +77,10 @@ exports.import_nyt_json = function(res, year, month) {
 
 
 	});
+
+	function sleep(ms) {
+	  return new Promise(resolve => setTimeout(resolve, ms));
+	}
 
 
 
