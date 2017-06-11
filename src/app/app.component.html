@@ -64,6 +64,17 @@
 
 		<div class="col-md-12">
 				<h6 class="text-center text-muted quote"><i>"Fresh news everyday!"</i></h6>
+				<button type="button" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+    </div>
+  </div>
+</div>
 				<div class="card-deck">
 
 					<div class="card" *ngFor="let year of years">

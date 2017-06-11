@@ -59,15 +59,19 @@ exports.import_nyt_json = function(res, year, month) {
     		}
 
     		console.log('finished import!');
-  			console.log('-----------------');
+    		console.log('waiting 5sec');
+    		setTimeout( ( function timeOut() { 
 
-  			setTimeout((function timeOut() { console.log('waiting 5sec') }),3000);
+    			console.log('waited 5sec');
+    			console.log('-----------------');
   		
+				db.close();
+	    		mongoose.disconnect();
 
-	    	db.close();
-	    	mongoose.disconnect();
-
-	    	res.status(200).json({ok:"ok"});
+	    		res.status(200).json({ok:"ok"});
+    		
+    		}), 5000);
+  			
 	    })
 	    .catch(error => {
 	    	db.close();

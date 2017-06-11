@@ -5,10 +5,13 @@ exports.get_nyt_articles = function(res, date, page) {
 	const axios = require('axios');
 	const API = 'http://localhost:3000/api/docs';
 
-	mongoose.Promise = global.Promise;	
+	
+	var tmp_date = new Date(date);
 	
 	//var db = mongoose.createConnection('mongodb://localhost/nyt/docs');
 	mongoose.connect('mongodb://localhost/nyt/docs');
+	mongoose.Promise = global.Promise;	
+
 	var db = mongoose.connection;
 
 	var Document = require('../models/document');
@@ -23,7 +26,8 @@ exports.get_nyt_articles = function(res, date, page) {
 
   		if(!page) page = 1;
 
-		Document.find({'$and': [{'$where': 'this.pub_date.slice(0, 10) == "' + date + '"'} , { print_page: page }]}).exec( function(err, docs) {
+		//Document.find({'$and': [{'$where': 'this.pub_date.slice(0, 10) == "' + date + '"'} , { print_page: page }]}).exec( function(err, docs) {
+		Document.find({ pub_date : date ,  print_page: page }).exec( function(err, docs) {
 		
 			console.log('returning results!')
 			if (err) throw err;
