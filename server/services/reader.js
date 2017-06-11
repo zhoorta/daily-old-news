@@ -7,7 +7,9 @@ exports.get_nyt_articles = function(res, date, page) {
 
 	mongoose.Promise = global.Promise;	
 	
-	var db = mongoose.createConnection('mongodb://localhost/nyt/docs');
+	//var db = mongoose.createConnection('mongodb://localhost/nyt/docs');
+	mongoose.connect('mongodb://localhost/nyt/docs');
+	var db = mongoose.connection;
 
 	var Document = require('../models/document');
 
@@ -26,7 +28,8 @@ exports.get_nyt_articles = function(res, date, page) {
 			console.log('returning results!')
 			if (err) throw err;
 
-			db.close();
+	    	db.close();
+	    	mongoose.disconnect();
 
 			res.status(200).json(docs);
 

@@ -9,7 +9,8 @@ exports.import_nyt_json = function(res, year, month) {
 	var mongoose = require('mongoose');
 	mongoose.Promise = global.Promise;
 
-	var db = mongoose.createConnection('mongodb://localhost/nyt/docs');
+	mongoose.connect('mongodb://localhost/nyt/docs');
+	var db = mongoose.connection;
 
 
 	var Document = require('../models/document');
@@ -62,6 +63,7 @@ exports.import_nyt_json = function(res, year, month) {
   		
 
 	    	db.close();
+	    	mongoose.disconnect();
 
 	    	res.status(200).json({ok:"ok"});
 	    })
