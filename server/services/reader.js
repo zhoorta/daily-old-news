@@ -4,9 +4,6 @@ exports.get_nyt_articles = function(res, date, page) {
  
 	const axios = require('axios');
 	const API = 'http://localhost:3000/api/docs';
-
-	
-	var tmp_date = new Date(date);
 	
 	//var db = mongoose.createConnection('mongodb://localhost/nyt/docs');
 	mongoose.connect('mongodb://localhost/nyt/docs');
