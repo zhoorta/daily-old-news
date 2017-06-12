@@ -44,9 +44,10 @@ exports.import_nyt_json = function(res, year, month) {
     					type_of_material: articles[article].type_of_material,
     					headline: articles[article].headline.main,
     					lead_paragraph: articles[article].lead_paragraph,
-    					pub_date: articles[article].pub_date,
+    					pub_date: articles[article].pub_date.substr(0,10),
     					web_url: articles[article].web_url,
     					print_page: articles[article].print_page,
+    					keywords: articles[article].keywords,
     				});
 
     			mongo_doc.save(function(err) {
@@ -81,10 +82,6 @@ exports.import_nyt_json = function(res, year, month) {
 
 
 	});
-
-	function sleep(ms) {
-	  return new Promise(resolve => setTimeout(resolve, ms));
-	}
 
 
 

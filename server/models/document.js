@@ -7,6 +7,7 @@ var documentSchema = mongoose.Schema({
     pub_date: Date,
     web_url: String,
     print_page: Number,
+    keywords: Object,
     updated: { type: Date, default: Date.now },
 });
 
