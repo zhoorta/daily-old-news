@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-var articleSchema = mongoose.Schema({
+var documentSchema = mongoose.Schema({
     type_of_material: String,
     headline: String,
     lead_paragraph: String,
@@ -13,14 +13,6 @@ var articleSchema = mongoose.Schema({
 });
 
 
-
-var documentSchema = mongoose.Schema({
-	id: Number,
-	articles: [articleSchema],
-    updated: { type: Date, default: Date.now },
-});
-
-
-var Document = mongoose.model('documents', documentSchema);
+var Document = mongoose.model('docs', documentSchema);
 
 module.exports = Document;

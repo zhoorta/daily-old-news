@@ -23,7 +23,26 @@ exports.get_nyt_articles = function(res, date, page) {
   		if(!page) page = 1;
 
 		//Document.find({'$and': [{'$where': 'this.pub_date.slice(0, 10) == "' + date + '"'} , { print_page: page }]}).exec( function(err, docs) {
-		Document.find({ pub_date : date ,  print_page: page }).exec( function(err, docs) {
+		//Document.find({ pub_date : date ,  print_page: page }).exec( function(err, docs) {
+		//.sort({ print_page: 1 })
+
+
+		//compose idx
+		var tmpdate = new Date(date);
+		var year = tmpdate.getFullYear();
+		var m = tmpdate.getMonth() + 1;
+		var d = tmpdate.getDay();
+		
+		if(m<10) month = "0" + m.toString();
+		else month = m.toString();
+
+		if(d<10) day = "0" + d.toString();
+		else day = d.toString();
+
+		var idx = Number(year.toString() + month + day);
+
+
+		Document.findOne({ "id" : idx  }).exec( function(err, docs) {
 		
 			console.log('returning results!')
 			if (err) throw err;
@@ -31,7 +50,7 @@ exports.get_nyt_articles = function(res, date, page) {
 	    	db.close();
 	    	mongoose.disconnect();
 
-			res.status(200).json(docs);
+			res.status(200).json(docs.articles);
 
 		});
 
