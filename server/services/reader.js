@@ -10,7 +10,7 @@ exports.get_nyt_articles = function(res, date, page) {
 
 	var db = mongoose.connection;
 
-	var Document = require('../models/document');
+	var Document = require('../models/edition');
 
 	db.on('error', console.error.bind(console, 'connection error:'));
 	db.once('open', function() {
