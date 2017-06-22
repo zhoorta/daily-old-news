@@ -2,17 +2,11 @@
 
 
 	<div class="row">
-		<div class="col-md-12 "><hr></div>
-		<div class="col-md-6 col-xs-6">
+		<div class="col-md-12 text-center">
+			<hr>
 			<a href="#" #elem (click)="resetDate()"><h1>{{title}}</h1></a>
-			<small>{{sub_title}}</small>
+			<hr>
 		</div>
-		<div class="col-md-6 col-xs-6 text-right">
-
-			<input type="date" class="form-control form-control-date" max="1979-12-31" min="1899-12-31" (change)="changeDate($event.target.value)" value="{{ curr_date }}">
-
-		</div>
-		<div class="col-md-12"><hr></div>
 	</div>
 
 	<div class="row" *ngIf="nytService.adminMode">
@@ -64,23 +58,15 @@
 
 		<div class="col-md-12">
 				<h6 class="text-center text-muted quote"><i>"Fresh news everyday!"</i></h6>
-				<button type="button" data-toggle="modal" data-target="#myModal">Open Modal</button>
+				
 
-<div id="myModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-    </div>
-  </div>
-</div>
 				<div class="card-deck">
 
 					<div class="card" *ngFor="let year of years">
 						<div class="card-block">
 						  <br>
 						  <a href="#" (click)="changeDate(nytService.getYearSearchDate(year), true)"><h4 class="card-title text-center">{{ nytService.getYearSearchDate(year) | date: 'fullDate' }}</h4></a>
+
 						  <br>
 						  <p class="card-text text-center"><small class="text-muted">Updated {{ nytService.getLastUpdate(year) }} years ago</small></p>
 						</div>
@@ -100,21 +86,47 @@
     			<br>Loading...
 			</div>
 
-			<div class="card-columns">
-
-			  <div class="card" *ngFor="let nyt_article of nyt_articles$ | async">
-			    <div class="card-block">
-			      <p class="card-text"><small class="text-muted">{{ nyt_article.type_of_material }}</small></p>
-			      <a href="{{ nyt_article.web_url }}" target="_blank"><h4 class="card-title">{{ nyt_article.headline }}</h4></a>
-			      <p class="card-text">{{ nyt_article.lead_paragraph }}</p>
-			      <p class="card-text"><small class="text-muted">{{ nyt_article.pub_date | date:'medium' }}</small></p>
-			      
-			    </div>
-			  </div>
-
+			<div class="text-center">
+				{{ this.nytService.searchDate | date:'mediumDate' }}
+				<button type="button" data-toggle="modal" data-target="#myModal">Open Modal</button>
+				<hr>
 			</div>
 
-			<div class="text-center" *ngIf="!this.nytService.totalArticles"><br><h4>No news good news!</h4>Try another date!</div>
+
+			<div *ngFor="let page of publication$ | async">
+
+				<div *ngIf="page">
+
+					<div *ngIf="page.print_page>1" class="text-center">
+						<hr>
+						Page {{ page.print_page }}
+						<hr>
+					</div>
+
+					<div class="card-columns">
+					
+						<div *ngFor="let article of page.articles">
+
+							<div class="card">
+								<div class="card-block">
+									<p class="card-text"><small class="text-muted">{{ article.type_of_material }}</small></p>
+									<a href="{{ article.web_url }}" target="_blank"><h4 class="card-title">{{ article.headline.main }}</h4></a>
+									<p class="card-text">{{ article.lead_paragraph }}</p>
+								</div>
+							</div>
+							
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+			<div class="text-center" *ngIf="!this.nytService.totalArticles">
+				<br><h4>No news good news!</h4>
+				Try another date!
+			</div>
 
 			
 

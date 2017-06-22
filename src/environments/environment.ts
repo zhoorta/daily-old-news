@@ -5,7 +5,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://don.ironsoft.net/api/',
+  //apiUrl: 'http://don.ironsoft.net/api/',
+  apiUrl: 'http://localhost:3000/api/',
   apiKey: '',
-  adminMode: true,
+  adminMode: false,
 };

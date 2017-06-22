@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
+
 import { NYTService } from './nyt.service';
 import { AdminToolsService } from './admin-tools.service';
 
@@ -15,7 +17,7 @@ export class AppComponent implements OnInit {
     title = 'Daily Old News';
     sub_title = 'Data provided by nyt api';
 
-  	public nyt_articles$: Observable<any>;
+  	public publication$: Observable<any>;
 
     public years = [];
     public isDateSelected: boolean = false;
@@ -28,6 +30,13 @@ export class AppComponent implements OnInit {
     public import_end_month;
     public import_end_year;
 
+    public all_years = [];
+    public all_months = [];
+    public all_days = [];
+    
+    public dt: Date = new Date();
+
+
 
     constructor(private nytService: NYTService, private adminToolsService: AdminToolsService) {}
 
@@ -37,6 +46,10 @@ export class AppComponent implements OnInit {
       this.years.push(this.nytService.year); 
       this.years.push(this.nytService.year + 50); 
       this.years.push(this.nytService.year + 75);
+
+      for(var i=1852; i <2002; i++) this.all_years.push(i);
+      for(var i=1; i <13; i++) this.all_months.push(i);
+      for(var i=1; i <32; i++) this.all_days.push(i);
     
   	}
 
@@ -45,8 +58,7 @@ export class AppComponent implements OnInit {
       var current = new Date(this.nytService.searchDate);
       current.setDate(current.getDate() + day_to_add);
 
-      this.nytService.setDate(current);
-      this.nyt_articles$ = this.nytService.getArticles();
+      this.publication$ = this.nytService.getPublication(current);
 
     }
 
@@ -68,8 +80,7 @@ export class AppComponent implements OnInit {
         this.nytService.refreshingData = true;
         this.isDateSelected = true;
         
-        this.nytService.setDate(new Date(date));
-        this.nyt_articles$ = this.nytService.getArticles();
+        this.publication$ = this.nytService.getPublication(new Date(date));
 
       }     
 

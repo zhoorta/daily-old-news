@@ -26,7 +26,8 @@ export class NYTService {
     public month: any;
     public day: any;
 
-    public totalArticles: number = 0;
+    public totalPages: number = 0;
+
 
   	constructor(private http: Http) { 
 
@@ -34,7 +35,9 @@ export class NYTService {
     }
 
 
-    getArticles = (): Observable<any> => {
+    getPublication = (date: Date): Observable<any> => {
+
+        this.setDate(date);
 
         //var apiSrc =  this.apiUrl + this.year + '/' + this.month + '.json?api-key=' + this.apiKey;
         var apiSrc =  this.apiUrl + 'docs/' + this.year + '/' + this.month + '/' + this.day;
@@ -46,13 +49,16 @@ export class NYTService {
 
 
     private extractData(response: Response) {
-        let articles = response.json();
+        
+        let pages = response.json();
 
         this.refreshingData = false;
 
-        this.totalArticles = articles.length;
+        console.log(pages);
 
-        return articles;
+        this.totalPages = pages.length;
+
+        return pages;
     }
     
 
@@ -64,10 +70,10 @@ export class NYTService {
       this.setDate(new Date(this.current_year - 100, today.getMonth(), today.getDate()))
     }
 
-    public setDate(date: Date)
+    private setDate(date: Date)
     {
 
-      this.totalArticles = 0;
+      this.totalPages = 0;
       this.year = date.getFullYear();
       this.month = date.getMonth() + 1;
       this.day = date.getDate();

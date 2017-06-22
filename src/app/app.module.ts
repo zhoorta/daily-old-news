@@ -8,15 +8,19 @@ import { AppComponent } from './app.component';
 import { NYTService } from './nyt.service';
 import { AdminToolsService } from './admin-tools.service';
 
+import { DatepickerModule } from 'angular2-material-datepicker';
+import { DateModalComponent } from './date-modal/date-modal.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DateModalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    DatepickerModule
   ],
   providers: [NYTService, AdminToolsService],
   bootstrap: [AppComponent]
