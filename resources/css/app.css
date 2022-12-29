@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind colors;
+
+
+@layer base {
+  html {
+    font-family: Oranienbaum, system-ui, sans-serif;
+  }
+}
